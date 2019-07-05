@@ -1,0 +1,6 @@
+[submodule "autoreg"]
+	path = autoreg
+	url = https://github.com/MahShaaban/autoreg
+[submodule "manuscript"]
+	path = manuscript
+	url = https://git.overleaf.com/5d19b768ff8aa833ffb04919
