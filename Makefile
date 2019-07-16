@@ -45,6 +45,7 @@ figures: dir_manuscript \
 	$(FIG_DIR)/correlations_factor_stage.png \
 	$(FIG_DIR)/factor_correlations_heatmap.png \
 	$(FIG_DIR)/annotation_correlations_heatmap.png \
+	$(FIG_DIR)/peak_overlap_heatmap.png \
 	$(FIG_DIR)/factor_cofac_stage.png \
 	$(FIG_DIR)/factor_cofac_annotation.png \
 	$(FIG_DIR)/factor_hm_stage.png \
@@ -69,8 +70,10 @@ figures: dir_manuscript \
 	$(FIG_DIR)/profile_peaks_adipogenic_tf.png \
 	$(FIG_DIR)/coexpres_adipogenic_autophagy_tf.png \
 	$(FIG_DIR)/coexpres_adipogenic_autophagy_genes.png \
-	$(FIG_DIR)/coexpres_adipogenic_adipogenic.png
-	
+	$(FIG_DIR)/coexpres_adipogenic_adipogenic.png \
+	$(FIG_DIR)/PPARG_occupancy_change.png \
+	$(FIG_DIR)/CEBPB_occupancy_change.png
+
 tables: ## Generate the tables
 tables: dir_manuscript \
 	dir_logs \
@@ -207,7 +210,7 @@ $(FIG_DIR)/transcription_expression.png: $(FIG_SRC)/transcription_expression.R \
 	$(RFIG)
 $(FIG_DIR)/peak_overlap_heatmap.png: $(FIG_SRC)/peak_overlap_heatmap.R \
 	$(DATA)/peak_counts.rds \
-	$(DATA)/peak_overlaps.rds
+	$(DATA)/peak_overlaps_all.rds
 	$(RFIG)
 $(FIG_DIR)/profile_%.png: $(FIG_SRC)/profiles.R \
 	$(DATA)/gene_counts.rds \
@@ -217,6 +220,11 @@ $(FIG_DIR)/profile_%.png: $(FIG_SRC)/profiles.R \
 $(FIG_DIR)/signal_%.png: $(FIG_SRC)/signal_tracks.R \
 	$(DATA)/data_tracks_tidy.rds \
 	$(DATA)/data_tracks_tissue_tidy.rds
+	$(RFIG)
+$(FIG_DIR)/%_occupancy_change.png: $(FIG_SRC)/occupancy_change.R \
+	$(DATA)/go_annotation.rds \
+	$(DATA)/occupancy_res.rds \
+	$(DATA)/factor_targets.rds
 	$(RFIG)
 	
 # Tables
