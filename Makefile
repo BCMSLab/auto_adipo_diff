@@ -38,10 +38,14 @@ dir_logs:
 figures: ## Generate the figures
 figures: dir_manuscript \
 	dir_logs \
-	$(FIG_DIR)/markers.png \
+	$(FIG_DIR)/Autophagy_markers.png \
+	$(FIG_DIR)/Lipogenesis_markers.png \
+	$(FIG_DIR)/Adipogenesis_markers.png \
 	$(FIG_DIR)/mds_gene_group.png \
-	$(FIG_DIR)/volcanos.png \
-	$(FIG_DIR)/volcanos_binding.png \
+	$(FIG_DIR)/volcanos_all.png \
+	$(FIG_DIR)/volcanos_autophagy.png \
+	$(FIG_DIR)/volcanos_binding_all.png \
+	$(FIG_DIR)/volcanos_binding_autophagy.png \
 	$(FIG_DIR)/correlations_factor_stage.png \
 	$(FIG_DIR)/factor_correlations_heatmap.png \
 	$(FIG_DIR)/annotation_correlations_heatmap.png \
@@ -86,7 +90,7 @@ tables: dir_manuscript \
 	$(TAB_DIR)/variance_explained.tex
 	
 # Figures
-$(FIG_DIR)/markers.png: $(FIG_SRC)/markers.R $(DATA)/gene_counts.rds
+$(FIG_DIR)/%_markers.png: $(FIG_SRC)/markers.R $(DATA)/gene_counts.rds
 	$(RFIG)
 $(FIG_DIR)/mds_gene_group.png: $(FIG_SRC)/mds_gene_group.R \
 	$(DATA)/go_annotation.rds \
@@ -96,12 +100,12 @@ $(FIG_DIR)/mds_gene_group.png: $(FIG_SRC)/mds_gene_group.R \
 $(FIG_DIR)/mds_binding_factors.png: $(FIG_SRC)/mds_binding_factors.R \
 	$(DATA)/binding_data.rds
 	$(RFIG)
-$(FIG_DIR)/volcanos.png: $(FIG_SRC)/volcanos.R \
+$(FIG_DIR)/volcanos_%.png: $(FIG_SRC)/volcanos.R \
 	$(DATA)/go_annotation.rds \
 	$(DATA)/tf_annotation.rds \
 	$(DATA)/deg_res.rds
 	$(RFIG)
-$(FIG_DIR)/volcanos_binding.png: $(FIG_SRC)/volcanos_binding.R \
+$(FIG_DIR)/volcanos_binding_%.png: $(FIG_SRC)/volcanos_binding.R \
 	$(DATA)/go_annotation.rds \
 	$(DATA)/binding_data.rds \
 	$(DATA)/dep_res.rds

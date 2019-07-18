@@ -6,7 +6,7 @@ go_annotation <- read_rds('autoreg/data/go_annotation.rds')
 tf_annotation <- read_rds('autoreg/data/tf_annotation.rds')
 targets <- intersect(go_annotation$SYMBOL, tf_annotation$SYMBOL)
 
-p1 <- deg_res %>%
+(deg_res %>%
   mutate(contrast = case_when(
     contrast == 'early_vs_non' ~ 'Early vs Non',
     contrast == 'late_vs_non' ~ 'Late vs Non',
@@ -21,9 +21,12 @@ p1 <- deg_res %>%
         strip.background = element_blank(),
         panel.spacing = unit(0,"null")) +
   labs(y = "P-value (-Log 10)",
-       x = 'Fold-Change (Log 2)')
+       x = 'Fold-Change (Log 2)')) %>%
+  ggsave(plot = .,
+         filename = 'manuscript/figures/volcanos_all.png',
+         width = 12, height = 7, units = 'cm')
 
-p2 <- deg_res %>%
+(deg_res %>%
   mutate(contrast = case_when(
     contrast == 'early_vs_non' ~ 'Early vs Non',
     contrast == 'late_vs_non' ~ 'Late vs Non',
@@ -36,19 +39,12 @@ p2 <- deg_res %>%
   geom_hline(yintercept = 5, lty = 2) +
   geom_text(aes(label = name), color = 'magenta', size = 3) +
   facet_wrap(~contrast, nrow = 1) +
-#  lims(x = c(-3, 3)) +
   theme_bw() +
   theme(panel.grid = element_blank(),
         strip.background = element_blank(),
         panel.spacing = unit(0,"null"))+
   labs(y = "P-value (-Log 10)",
-       x = 'Fold-Change (Log 2)')
-
-plot_grid(p1, p2, 
-          scale = .95,
-          labels = 'AUTO',
-          label_size = 10,
-          label_fontface = 'plain') %>%
+       x = 'Fold-Change (Log 2)')) %>%
   ggsave(plot = .,
-         filename = 'manuscript/figures/volcanos.png',
-         width = 24, height = 7, units = 'cm')
+         filename = 'manuscript/figures/volcanos_autophagy.png',
+         width = 12, height = 7, units = 'cm')

@@ -14,8 +14,8 @@ pd <- tibble(Var2 = gene_counts$id,
              time = gene_counts$time,
              group = gene_counts$group)
 
-(map(markers, function(x) {
-  assay(gene_counts)[rownames(gene_counts) %in% x,] %>%
+imap(markers, function(x, .y) {
+  (assay(gene_counts)[rownames(gene_counts) %in% x,] %>%
     melt %>%
     left_join(pd) %>%
     group_by(Var1, time) %>%
@@ -27,18 +27,11 @@ pd <- tibble(Var2 = gene_counts$id,
     theme(panel.grid = element_blank()) +
     lims(y = c(0,18)) +
     labs(x = 'Time (hr)',
-         y = 'mRNA Level (Log 2)')
-}) %>%
-  plot_grid(plotlist = .,
-            nrow = 1,
-            scale = .95,
-            labels = 'AUTO',
-            label_fontface = 'plain',
-            label_size = 10)) %>%
-  ggsave(plot = .,
-         filename = 'manuscript/figures/markers.png',
-         width = 20, height = 7, units = 'cm')
-
+         y = 'mRNA Level (Log 2)')) %>%
+    ggsave(plot = .,
+           filename = paste0('manuscript/figures/', .y,'_markers.png'),
+           width = 7, height = 7, units = 'cm')
+})
 
 # map(markers, function(x) {
 #   assay(gene_counts)[rownames(gene_counts) %in% x,] %>%

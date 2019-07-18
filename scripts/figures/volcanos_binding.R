@@ -12,7 +12,7 @@ ind <- map(binding_data, function(x){
 }) %>%
   unlist()
 
-p1 <- dep_res %>%
+(dep_res %>%
   filter(factor %in% tfs) %>%
   mutate(contrast = case_when(
     contrast == 'early_vs_non' ~ 'Early vs Non',
@@ -30,9 +30,12 @@ p1 <- dep_res %>%
         strip.background = element_blank(),
         panel.spacing = unit(0,"null")) +
   labs(y = "P-value (-Log 10)",
-       x = 'Fold-Change (Log 2)')
+       x = 'Fold-Change (Log 2)')) %>%
+  ggsave(plot = .,
+         filename = 'manuscript/figures/volcanos_binding_all.png',
+         width = 20, height = 12, units = 'cm')
 
-p2 <- dep_res %>%
+(dep_res %>%
   filter(row %in% ind, factor %in% tfs) %>%
   mutate(contrast = case_when(
     contrast == 'early_vs_non' ~ 'Early vs Non',
@@ -50,14 +53,7 @@ p2 <- dep_res %>%
         strip.background = element_blank(),
         panel.spacing = unit(0,"null")) +
   labs(y = "P-value (-Log 10)",
-       x = 'Fold-Change (Log 2)')
-
-plot_grid(p1, p2,
-          ncol = 1,
-          scale = .95,
-          labels = 'AUTO',
-          label_fontface = 'plain',
-          label_size = 10) %>%
+       x = 'Fold-Change (Log 2)')) %>%
   ggsave(plot = .,
-         filename = 'manuscript/figures/volcanos_binding.png',
-         width = 20, height = 24, units = 'cm')
+         filename = 'manuscript/figures/volcanos_binding_autophagy.png',
+         width = 20, height = 12, units = 'cm')
