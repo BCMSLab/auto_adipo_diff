@@ -41,15 +41,14 @@ bind_rows(list('ChIP Seq' = t1,
           .id = 'type') %>%
   mutate(type = ifelse(duplicated(type), '', type)) %>%
   setNames(c('Type', 'Study', '(N)', 'Factor', 'Time (hr)', 'Stage', 'PMID', 'Ref')) %>%
-  xtable(caption = 'Datasets of RNA and ChIP Seq.',
-         label = 'tab:datasets',
-         align = 'cllclllll') %>%
-  print(floating = TRUE,
-        floating.environment = "sidewaystable",
+  xtable(align = 'cllclllll') %>%
+  print(floating = FALSE,
         include.rownames = FALSE,
         booktabs = TRUE,
-        caption.placement = 'top',
         sanitize.text.function = identity,
         comment = FALSE,
         add.to.row = list(pos = list(14), command = '\\midrule '),
         file = 'manuscript/tables/datasets.tex')
+
+#caption = 'Datasets of RNA and ChIP Seq.',
+#label = 'tab:datasets',

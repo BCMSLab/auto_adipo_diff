@@ -25,12 +25,10 @@ melt(markers) %>%
   separate(late_vs_non, sep = '_', into = c('fc2', 'se2', 'padj2')) %>%
   separate(late_vs_early, sep = '_', into = c('fc3', 'se3', 'padj3')) %>%
   mutate(cat = ifelse(duplicated(cat), '', cat)) %>%
-  xtable(caption = 'Differentially expression of gene markers.',
-         label = 'tab:deg_markers',
-         align = 'cllccccccccc') %>%
-  print(include.rownames = FALSE,
+  xtable(align = 'cllccccccccc') %>%
+  print(floating = FALSE,
+        include.rownames = FALSE,
         booktabs = TRUE,
-        caption.placement = 'top',
         sanitize.text.function = identity,
         comment = FALSE,
         include.colnames=FALSE,
@@ -38,3 +36,5 @@ melt(markers) %>%
                           command = c(header, rep('\\midrule ', 2))),
         file = 'manuscript/tables/deg_markers.tex')
 
+#caption = 'Differentially expression of gene markers.'
+#label = 'tab:deg_markers'

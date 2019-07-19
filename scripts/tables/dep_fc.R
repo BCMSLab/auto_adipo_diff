@@ -49,17 +49,16 @@ peak_symbol %>%
   separate(late_vs_early, sep = '_', into = c('n3', 'range3', 'ave3', 'sd3')) %>%
   mutate(factor = ifelse(duplicated(factor), '', factor)) %>%
   mutate(cat = ifelse(duplicated(cat), '', as.character(cat))) %>%
-  xtable(caption = 'Significant peaks of adipogenic factors on autophagy transcription factor genes.',
-         label = 'tab:dep_fc',
-         align = 'clllcccccccccccc') %>%
-  print(floating = TRUE,
-        floating.environment = "sidewaystable",
+  xtable(align = 'clllcccccccccccc') %>%
+  print(floating = FALSE,
         include.rownames = FALSE,
         booktabs = TRUE,
-        caption.placement = 'top',
         sanitize.text.function = identity,
         comment = FALSE,
         include.colnames=FALSE,
         add.to.row = list(pos = list(0, 4, 6, 8, 12, 17, 7, 15),
                           command = c(header, rep('\\cmidrule{2-15} ', 5), rep('\\midrule ', 2))),
         file = 'manuscript/tables/dep_fc.tex')
+
+#caption = 'Significant peaks of adipogenic factors on autophagy transcription factor genes.',
+#label = 'tab:dep_fc',

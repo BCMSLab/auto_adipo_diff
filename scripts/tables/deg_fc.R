@@ -35,15 +35,16 @@ deg_res %>%
   separate(late_vs_non, sep = '_', into = c('fc2', 'se2')) %>%
   separate(late_vs_early, sep = '_', into = c('fc3', 'se3')) %>%
   mutate(cat = ifelse(duplicated(cat), '', as.character(cat))) %>%
-  xtable(caption = 'Significant differentially expressed genes of adipogenic and autophagy transcription factors.',
-         label = 'tab:deg_fc',
-         align = 'cllcccccc') %>%
-  print(include.rownames = FALSE,
+  xtable(align = 'cllcccccc') %>%
+  print(floating = FALSE,
+        include.rownames = FALSE,
         booktabs = TRUE,
-        caption.placement = 'top',
         sanitize.text.function = identity,
         comment = FALSE,
         include.colnames=FALSE,
         add.to.row = list(pos = list(0, 4, 9),
                           command = c(header, rep('\\midrule ', 2))),
         file = 'manuscript/tables/deg_fc.tex')
+
+#caption = 'Significant differentially expressed genes of adipogenic and autophagy transcription factors.'
+#label = 'tab:deg_fc'

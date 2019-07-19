@@ -86,7 +86,7 @@ tables: dir_manuscript \
 	$(TAB_DIR)/deg_fc.tex \
 	$(TAB_DIR)/dep_fc.tex \
 	$(TAB_DIR)/dep_fc_genes.tex \
-	$(TAB_DIR)/dep_fc_tf.tex \
+	$(TAB_DIR)/dep_fc_tf_mod.tex \
 	$(TAB_DIR)/variance_explained.tex
 	
 # Figures
@@ -254,7 +254,7 @@ $(TAB_DIR)/dep_fc_genes.tex: $(TAB_SRC)/dep_fc_genes.R \
 	$(DATA)/binding_data.rds \
 	$(DATA)/dep_res.rds
 	$(RTAB)
-$(TAB_DIR)/dep_fc_tf.tex: $(TAB_SRC)/dep_fc_tf.R \
+$(TAB_DIR)/dep_fc_tf_mod.tex: $(TAB_SRC)/dep_fc_tf_mod.R \
 	$(DATA)/binding_data.rds \
 	$(DATA)/dep_res.rds
 	$(RTAB)

@@ -27,13 +27,14 @@ list('All Genes' = rownames(transformed_counts),
          Category = factor(Category, levels = c('All Genes', 'Autophagy Genes', 'Adipogenic TF', 'Autophagy TF'))) %>%
   arrange(Category) %>%
   spread(dim, value) %>%
-  xtable(caption = 'Percent of gene expression variance explained by the stage of differentiation.',
-         label = 'tab:variance_explained',
-         align = 'clcc') %>%
-  print(include.rownames = FALSE,
+  xtable(align = 'clcc') %>%
+  print(floating = FALSE,
+        include.rownames = FALSE,
         booktabs = TRUE,
-        caption.placement = 'top',
         sanitize.text.function = identity,
         comment = FALSE,
         file = 'manuscript/tables/variance_explained.tex')
-  
+
+#caption = 'Percent of gene expression variance explained by the stage of differentiation.'
+#label = 'tab:variance_explained'
+
