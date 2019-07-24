@@ -1,11 +1,16 @@
+# loading required libraries
 library(tidyverse)
 library(SummarizedExperiment)
 
+# loading data
 transformed_counts <- read_rds('autoreg/data/transformed_counts.rds')
 go_annotation <- read_rds('autoreg/data/go_annotation.rds')
 tf_annotation <- read_rds('autoreg/data/tf_annotation.rds')
-tf <- c('Ctcf', 'Cebpb', 'Pparg', 'Rxrg', 'Ep300', 'Med1')
 
+# define variables
+tf <- c('Cebpb', 'Pparg', 'Rxrg', 'Ep300', 'Med1')
+
+# generating figure
 (list('All Genes' = rownames(transformed_counts),
      'Autophagy Genes' = rownames(transformed_counts) %in% go_annotation$SYMBOL,
      'Autophagy TF' = rownames(transformed_counts) %in% intersect(go_annotation$SYMBOL, tf_annotation$SYMBOL),
@@ -13,7 +18,11 @@ tf <- c('Ctcf', 'Cebpb', 'Pparg', 'Rxrg', 'Ep300', 'Med1')
   map(function(x) {
     cmdscale(dist(t(assay(transformed_counts)[x,]))) %>%
       as.data.frame() %>%
-      mutate(group = transformed_counts$group)
+      mutate(group = transformed_counts$group,
+             group = case_when(group == 'non' ~ 'Non',
+                               group == 'early' ~ 'Early',
+                               group == 'late' ~ 'Late'),
+             group = factor(group, levels = c('Non', 'Early', 'Late')))
   }) %>%
   bind_rows(.id = 'type') %>%
   mutate(type = factor(type,
@@ -25,7 +34,7 @@ tf <- c('Ctcf', 'Cebpb', 'Pparg', 'Rxrg', 'Ep300', 'Med1')
   theme(legend.position = 'top',
         panel.grid = element_blank(),
         strip.background = element_blank()) +
-  labs(x = 'MDS1', y = 'MDS2', color = 'Stage of Differentiation')) %>%
+  labs(x = 'Dim 1', y = 'Dim 2', color = 'Stage of Differentiation')) %>%
   ggsave(plot = .,
          filename = 'manuscript/figures/mds_gene_group.png',
          height = 7, width = 20, units = 'cm')

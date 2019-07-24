@@ -32,12 +32,10 @@ targets <- intersect(go_annotation$SYMBOL, tf_annotation$SYMBOL)
     contrast == 'late_vs_non' ~ 'Late vs Non',
     contrast == 'late_vs_early' ~ 'Late vs Early')) %>%
   filter(row %in% go_annotation$SYMBOL) %>%
-  mutate(name = ifelse(row %in% targets, row, '')) %>%
   ggplot(aes(x = log2FoldChange, y = -log10(pvalue))) +
   geom_point(color = 'darkgray', alpha = .5) +
   geom_vline(xintercept = c(-1,1), lty = 2) +
   geom_hline(yintercept = 5, lty = 2) +
-  geom_text(aes(label = name), color = 'magenta', size = 3) +
   facet_wrap(~contrast, nrow = 1) +
   theme_bw() +
   theme(panel.grid = element_blank(),

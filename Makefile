@@ -84,7 +84,6 @@ tables: dir_manuscript \
 	$(TAB_DIR)/datasets.tex \
 	$(TAB_DIR)/deg_markers.tex \
 	$(TAB_DIR)/deg_fc.tex \
-	$(TAB_DIR)/dep_fc.tex \
 	$(TAB_DIR)/dep_fc_genes.tex \
 	$(TAB_DIR)/dep_fc_tf_mod.tex \
 	$(TAB_DIR)/variance_explained.tex
@@ -126,37 +125,37 @@ $(FIG_DIR)/transcription_factor_direction.png: $(FIG_SRC)/transcription_factor_d
 	$(DATA)/deg_res.rds \
 	$(DATA)/factor_occupancy.rds
 	$(RFIG)	
-$(FIG_DIR)/string_chip_networks.png: $(FIG_SRC)/string_chip_networks.R \
+#$(FIG_DIR)/string_chip_networks.png: $(FIG_SRC)/string_chip_networks.R \
 	$(DATA)/interactions.rds \
 	$(DATA)/factor_targets.rds \
 	$(DATA)/go_annotation.rds \
 	$(DATA)/tf_annotation.rds
-	$(RFIG)	
-$(FIG_DIR)/profiles_autophagy_genes.png: $(FIG_SRC)/profiles_autophagy_genes.R \
+#	$(RFIG)	
+#$(FIG_DIR)/profiles_autophagy_genes.png: $(FIG_SRC)/profiles_autophagy_genes.R \
 	$(DATA)/gene_counts.rds \
 	$(DATA)/factor_occupancy.rds
-	$(RFIG)
-$(FIG_DIR)/profiles_autophagy_tfs.png: $(FIG_SRC)/profiles_autophagy_tfs.R \
+#	$(RFIG)
+#$(FIG_DIR)/profiles_autophagy_tfs.png: $(FIG_SRC)/profiles_autophagy_tfs.R \
 	$(DATA)/gene_counts.rds \
 	$(DATA)/factor_occupancy.rds \
 	$(DATA)/go_annotation.rds \
 	$(DATA)/tf_annotation.rds
-	$(RFIG)
-$(FIG_DIR)/profiles_adipogenic_tfs.png: $(FIG_SRC)/profiles_adipogenic_tfs.R \
+#	$(RFIG)
+#$(FIG_DIR)/profiles_adipogenic_tfs.png: $(FIG_SRC)/profiles_adipogenic_tfs.R \
 	$(DATA)/gene_counts.rds \
 	$(DATA)/factor_occupancy.rds
-	$(RFIG)
-$(FIG_DIR)/peaks_autophagy_genes.png: $(FIG_SRC)/peaks_autophagy_genes.R \
+#	$(RFIG)
+#$(FIG_DIR)/peaks_autophagy_genes.png: $(FIG_SRC)/peaks_autophagy_genes.R \
 	$(DATA)/binding_data.rds
-	$(RFIG)
-$(FIG_DIR)/peaks_autophagy_tfs.png: $(FIG_SRC)/peaks_autophagy_tfs.R \
+#	$(RFIG)
+#$(FIG_DIR)/peaks_autophagy_tfs.png: $(FIG_SRC)/peaks_autophagy_tfs.R \
 	$(DATA)/binding_data.rds \
 	$(DATA)/go_annotation.rds \
 	$(DATA)/tf_annotation.rds
-	$(RFIG)
-$(FIG_DIR)/peaks_adipogenic_tfs.png: $(FIG_SRC)/peaks_adipogenic_tfs.R \
+#	$(RFIG)
+#$(FIG_DIR)/peaks_adipogenic_tfs.png: $(FIG_SRC)/peaks_adipogenic_tfs.R \
 	$(DATA)/binding_data.rds
-	$(RFIG)
+#	$(RFIG)
 $(FIG_DIR)/coexpres_adipogenic_autophagy_tf.png: $(FIG_SRC)/coexpres_adipogenic_autophagy_tf.R \
 	$(DATA)/dgca.rds \
 	$(DATA)/go_annotation.rds \

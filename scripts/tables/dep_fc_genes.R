@@ -1,10 +1,13 @@
+# loading requried libraries
 library(tidyverse)
 library(xtable)
 library(SummarizedExperiment)
 
+# loading data
 binding_data <- read_rds('autoreg/data/binding_data.rds')
 dep_res <- read_rds('autoreg/data/dep_res.rds')
 
+# defining variables
 ind <- c('Atg4b', 'Ulk1', 'Map1lc3a', 'Map1lc3b', 'Sqstm1', 'Becn1')
 
 peak_symbol <- map(binding_data, function(x){
@@ -20,14 +23,15 @@ header <- paste0("\\multirow{2}[3]{*}{Category} & \\multirow{2}[3]{*}{Factor} & 
                  " \\cmidrule(lr){4-7} \\cmidrule(lr){8-11} \\cmidrule(lr){12-15}",
                  "&&& (N) & Range & Ave & SD & (N) & Range & Ave & SD & (N) & Range & Ave & SD \\\\")
 
-cat_fac <- list(factor = c('CTCF', 'CEBPB', 'PPARG'),
+cat_fac <- list(factor = c('CEBPB', 'PPARG'),
                 co_factor = c('EP300', 'MED1', 'RXRG'),
                 hm = c('H3K27ac', 'H3K4me3'))
-fac <- tibble(cat = factor(rep(c('Factor', 'Cofactor', 'Histone Marker'), times = c(3,3,2)),
+fac <- tibble(cat = factor(rep(c('Factor', 'Cofactor', 'Histone Marker'), times = c(2,3,2)),
                            levels = c('Factor', 'Cofactor', 'Histone Marker')),
               factor = factor(unlist(cat_fac, use.names = FALSE),
                               levels = unlist(cat_fac, use.names = FALSE)))
 
+# generating table
 peak_symbol %>%
   inner_join(dep_res) %>%
   filter(padj < .2) %>%
@@ -55,8 +59,8 @@ peak_symbol %>%
         sanitize.text.function = identity,
         comment = FALSE,
         include.colnames=FALSE,
-        add.to.row = list(pos = list(0, 2, 5, 10, 6, 11),
-                          command = c(header, rep('\\cmidrule{2-15} ', 3), rep('\\midrule ', 2))),
+        add.to.row = list(pos = list(0, 2, 7, 3, 8),
+                          command = c(header, rep('\\cmidrule{2-15} ', 2), rep('\\midrule ', 2))),
         file = 'manuscript/tables/dep_fc_genes.tex')
 
 #caption = 'Significant peaks of adipogenic factors on autophagy genes.',

@@ -1,13 +1,16 @@
+# loading required libraries
 library(tidyverse)
 library(reshape2)
 library(SummarizedExperiment)
 library(xtable)
 
+# loading data
 go_annotation <- read_rds('autoreg/data/go_annotation.rds')
 tf_annotation <- read_rds('autoreg/data/tf_annotation.rds')
 
+# defining variables
 tf_autophagy <- intersect(go_annotation$SYMBOL, tf_annotation$SYMBOL)
-tf <- c('Ctcf', 'Cebpb', 'Pparg', 'Rxrg', 'Ep300', 'Med1')
+tf <- c('Cebpb', 'Pparg', 'Rxrg', 'Ep300', 'Med1')
 targets <- c('Atg4b', 'Ulk1', 'Map1lc3a', 'Map1lc3b', 'Sqstm1', 'Becn1')
 
 cat_gene <- list('Adipogenic TF' = tf,
@@ -23,6 +26,8 @@ header <- paste0("\\multirow{2}{*}{Category} & \\multirow{2}{*}{Gene} &",
                  "\\multicolumn{2}{c}{Early vs Non} & \\multicolumn{2}{c}{Late vs Non} & \\multicolumn{2}{c}{Late vs Early} \\\\",
                  "\\cmidrule(lr){3-4}\\cmidrule(lr){5-6}\\cmidrule(lr){7-8}",
                  "&& FC & SE & FC & SE & FC & SE\\\\")
+
+# generating table
 deg_res %>%
   right_join(cat_gene) %>%
   filter(padj < .2) %>%

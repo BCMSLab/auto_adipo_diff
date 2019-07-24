@@ -1,17 +1,23 @@
+# loading required libraries
 library(tidyverse)
 library(reshape2)
 library(xtable)
 
-markers <- list(Adipogenesis = c('Cebpa', 'Pparg'),
+# loading data
+deg_res <- read_rds('autoreg/data/deg_res.rds')
+
+# defining variables
+markers <- list(Adipogenesis = c('Cebpa', 'Cebpb','Pparg'),
                 Lipogenesis = c('Lpl', 'Acly', 'Dgat', 'Elov6', 'Fasn', 'Scd'),
                 Autophagy = c('Map1lc3b', 'Sqstm1', 'Becn1'))
 
-deg_res <- read_rds('autoreg/data/deg_res.rds')
 
 header <- paste0("\\multirow{2}{*}{Category} & \\multirow{2}{*}{Gene} &",
                  "\\multicolumn{3}{c}{Early vs Non} & \\multicolumn{3}{c}{Late vs Non} & \\multicolumn{3}{c}{Late vs Early} \\\\",
                  "\\cmidrule(lr){3-5}\\cmidrule(lr){6-8}\\cmidrule(lr){9-11}",
                  "&& FC & SE & FDR & FC & SE & FDR & FC & SE & FDR\\\\")
+
+# generating tables
 melt(markers) %>%
   setNames(c('row', 'cat')) %>%
   inner_join(deg_res) %>%
@@ -32,7 +38,7 @@ melt(markers) %>%
         sanitize.text.function = identity,
         comment = FALSE,
         include.colnames=FALSE,
-        add.to.row = list(pos = list(0, 2, 5),
+        add.to.row = list(pos = list(0, 3, 6),
                           command = c(header, rep('\\midrule ', 2))),
         file = 'manuscript/tables/deg_markers.tex')
 

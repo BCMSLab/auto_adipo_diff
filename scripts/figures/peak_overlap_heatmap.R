@@ -1,12 +1,15 @@
+# loading required libraries
 library(tidyverse)
 library(ComplexHeatmap)
 library(reshape2)
 library(circlize)
 
+# loading data
 peak_counts <- read_rds('autoreg/data/peak_counts.rds')
 
+# defining variables
 hms <- c('H3K27ac', 'H3K4me1', 'H3K4me2', 'H3K4me3', 'H3K9me3')
-tfs <- c('CTCF', 'CEBPB', 'PPARG', 'RXRG', 'EP300', 'MED1')
+tfs <- c('CEBPB', 'PPARG', 'RXRG', 'EP300', 'MED1')
 
 pd <- tibble(
   factor = peak_counts$factor,
@@ -22,8 +25,10 @@ peak_overlaps <- read_rds('autoreg/data/peak_overlaps_all.rds')
 
 col_fun <- colorRamp2(c(0, 1), c('white', 'darkblue'))
 
+# generating figure
 hms <- split(pd$id, pd$group) %>%
-  map(function(x) {
+  set_names(c('Non', 'Early', 'Late')) %>%
+  imap(function(x, .y) {
     mat <- peak_overlaps %>%
       filter(qSample %in% x, tSample %in% x) %>%
       mutate(frac = N_OL / (qLen + tLen)) %>%
@@ -44,28 +49,30 @@ hms <- split(pd$id, pd$group) %>%
             show_row_dend = FALSE,
             column_names_side = 'top',
             top_annotation = ca,
-            right_annotation = ra)
+            right_annotation = ra,
+            column_title = .y,
+            column_title_side = 'bottom')
   })
 
 png(filename = 'manuscript/figures/peak_overlap_heatmap.png',
-    width = 24, height = 8, units = 'cm', res = 300)
+    width = 24, height = 9, units = 'cm', res = 300)
 
 grid.newpage()
 pushViewport(viewport(layout = grid.layout(1, 3)))
 pushViewport(viewport(layout.pos.col = 1,
                       layout.pos.row = 1))
 
-draw(hms$non, newpage = FALSE)
+draw(hms$Non, newpage = FALSE)
 upViewport()
 
 pushViewport(viewport(layout.pos.col = 2,
                       layout.pos.row = 1))
-draw(hms$early, newpage = FALSE)
+draw(hms$Early, newpage = FALSE)
 upViewport()
 
 pushViewport(viewport(layout.pos.col = 3,
                       layout.pos.row = 1))
-draw(hms$late, newpage = FALSE)
+draw(hms$Late, newpage = FALSE)
 upViewport()
 
 dev.off()

@@ -1,12 +1,15 @@
+# loading required libraries
 library(tidyverse)
 library(xtable)
 library(SummarizedExperiment)
 
+# loading data
 binding_data <- read_rds('autoreg/data/binding_data.rds')
 dep_res <- read_rds('autoreg/data/dep_res.rds')
-
 go_annotation <- read_rds('autoreg/data/go_annotation.rds')
 tf_annotation <- read_rds('autoreg/data/tf_annotation.rds')
+
+# defining variables
 ind <- intersect(go_annotation$SYMBOL, tf_annotation$SYMBOL)
 
 peak_symbol <- map(binding_data, function(x){
@@ -22,14 +25,15 @@ header <- paste0("\\multirow{2}[3]{*}{Category} & \\multirow{2}[3]{*}{Factor} & 
   " \\cmidrule(lr){4-7} \\cmidrule(lr){8-11} \\cmidrule(lr){12-15}",
   "&&& (N) & Range & Ave & SD & (N) & Range & Ave & SD & (N) & Range & Ave & SD \\\\")
 
-cat_fac <- list(factor = c('CTCF', 'CEBPB', 'PPARG'),
+cat_fac <- list(factor = c('CEBPB', 'PPARG'),
                 co_factor = c('EP300', 'MED1', 'RXRG'),
                 hm = c('H3K27ac', 'H3K4me3'))
-fac <- tibble(cat = factor(rep(c('Factor', 'Cofactor', 'Histone Marker'), times = c(3,3,2)),
+fac <- tibble(cat = factor(rep(c('Factor', 'Cofactor', 'Histone Marker'), times = c(2,3,2)),
                            levels = c('Factor', 'Cofactor', 'Histone Marker')),
        factor = factor(unlist(cat_fac, use.names = FALSE),
                        levels = unlist(cat_fac, use.names = FALSE)))
 
+# generating table
 peak_symbol %>%
   inner_join(dep_res) %>%
   filter(padj < .2) %>%
@@ -56,8 +60,8 @@ peak_symbol %>%
         sanitize.text.function = identity,
         comment = FALSE,
         include.colnames=FALSE,
-        add.to.row = list(pos = list(0, 4, 6, 8, 12, 17, 7, 15),
-                          command = c(header, rep('\\cmidrule{2-15} ', 5), rep('\\midrule ', 2))),
+        add.to.row = list(pos = list(0, 2, 4, 8, 12, 3, 11),
+                          command = c(header, rep('\\cmidrule{2-15} ', 4), rep('\\midrule ', 2))),
         file = 'manuscript/tables/dep_fc.tex')
 
 #caption = 'Significant peaks of adipogenic factors on autophagy transcription factor genes.',

@@ -4,7 +4,7 @@ library(reshape2)
 library(cowplot)
 library(gghighlight)
 
-markers <- list(Adipogenesis = c('Cebpa', 'Pparg'),
+markers <- list(Adipogenesis = c('Cebpa', 'Cebpb', 'Pparg'),
                 Lipogenesis = c('Lpl', 'Acly', 'Dgat', 'Elov6', 'Fasn', 'Scd'),
                 Autophagy = c('Map1lc3b', 'Sqstm1', 'Becn1'))
 

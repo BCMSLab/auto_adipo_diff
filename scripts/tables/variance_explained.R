@@ -7,7 +7,7 @@ library(xtable)
 transformed_counts <- read_rds('autoreg/data/transformed_counts.rds')
 go_annotation <- read_rds('autoreg/data/go_annotation.rds')
 tf_annotation <- read_rds('autoreg/data/tf_annotation.rds')
-tf <- c('Ctcf', 'Cebpb', 'Pparg', 'Rxrg', 'Ep300', 'Med1')
+tf <- c('Cebpb', 'Pparg', 'Rxrg', 'Ep300', 'Med1')
 
 list('All Genes' = rownames(transformed_counts),
       'Autophagy Genes' = rownames(transformed_counts) %in% go_annotation$SYMBOL,

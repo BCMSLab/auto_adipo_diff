@@ -5,9 +5,10 @@ library(circlize)
 
 ddcor <- read_rds('autoreg/data/dgca.rds')
 
-targets <- c('Ctcf', 'Cebpb', 'Pparg', 'Rxrg', 'Ep300', 'Med1')
+targets <- c('Cebpb', 'Pparg', 'Rxrg', 'Ep300', 'Med1')
 
 hms <- ddcor %>%
+  filter(Gene2 != 'Ctcf') %>%
   filter(Gene1 %in% targets) %>%
   dplyr::select(Gene1, Gene2, group, cor) %>%
   unique() %>%
@@ -34,9 +35,9 @@ hms <- ddcor %>%
             column_names_gp = gpar(fontsize = 12))
   })
 
-hms_list <- hms$Pparg + hms$Cebpb + hms$Med1 + hms$Rxrg
+hms_list <- hms$Pparg + hms$Cebpb + hms$Med1 + hms$Rxrg + hms$Ep300
 
 png(filename = 'manuscript/figures/coexpres_adipogenic_adipogenic.png',
-    width = 20, height = 7, units = 'cm', res = 300)
+    width = 26, height = 6, units = 'cm', res = 300)
 draw(hms_list, auto_adjust = FALSE)
 dev.off()

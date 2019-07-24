@@ -1,27 +1,8 @@
+# loading required libraries
 library(tidyverse)
 library(reshape2)
 
-# dgca <- read_rds('autoreg/data/dgca.rds')
-# 
-# (dgca %>%
-#     dplyr::select(Gene1, Gene2, cor, group, pValDiff_adj) %>%
-#     unique() %>%
-#     mutate(group = factor(group, levels = c('non_cor', 'early_cor', 'late_cor'))) %>%
-#     filter(pValDiff_adj < .1) %>%
-#     ggplot(aes(x = group, y = cor)) +
-#     geom_boxplot() +
-#     facet_wrap(~Gene2, nrow = 2) +
-#     theme_bw() +
-#     theme(strip.background = element_blank(),
-#           panel.grid = element_blank()) +
-#     labs(x = '', y = "Pearson's Correlation") +
-#     scale_x_discrete('Stage of Differentiation',
-#                      labels = c('non', 'early', 'late'))) %>%
-#   ggsave(plot = .,
-#          'manuscript/figures/correlations_factor_stage.png',
-#          width = 20, height = 16, units = 'cm')
-
-# with deg
+# loading and cleaning data
 deg_res <- read_rds('autoreg/data/deg_res.rds') %>%
   filter(contrast != 'late_vs_early') %>%
   dplyr::select(group = contrast, Gene1 = row, fc = log2FoldChange) %>%
@@ -38,8 +19,12 @@ ddcor <- read_rds('autoreg/data/ddcor.rds') %>%
   }) %>%
   bind_rows()
 
+# generating figure
 (left_join(ddcor, deg_res) %>%
   na.omit() %>%
+  filter(Gene2 != 'Ctcf') %>%
+  mutate(group = case_when(group == 'early' ~ 'Early',
+                           group == 'late' ~ 'Late')) %>%
   ggplot(aes(x = group, y = abs(cor), fill = dir)) +
   geom_boxplot() +
   lims(y = c(0, 1)) +

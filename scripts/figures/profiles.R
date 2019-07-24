@@ -7,6 +7,7 @@ gene_counts <- read_rds('autoreg/data/gene_counts.rds')
 occupancy <- read_rds('autoreg/data/factor_occupancy.rds')
 binding_data <- read_rds('autoreg/data/binding_data.rds')
 
+# defining variables
 pd <- tibble(time = gene_counts$time,
              group = gene_counts$group,
              id = gene_counts$id)
@@ -15,6 +16,7 @@ targets <- list(adipogenic_tf = c('Pparg', 'Cebpb'),
                 autophagy_tf = c('Foxo1', 'Tfeb', 'Xbp1'),
                 autophagy_genes = c('Becn1', 'Map1lc3b', 'Sqstm1'))
 
+# generating figures
 imap(targets, function(x, .y) {
   filename <- paste0('manuscript/figures/profile_expression_', .y, '.png')
   
@@ -36,9 +38,11 @@ imap(targets, function(x, .y) {
     geom_point(aes(y = ave), color = 'red') +
     geom_linerange(aes(ymin = ave - sd, ymax = ave + sd), color = 'red') +
     facet_grid(count_type~geneId) +
+    expand_limits(y = 0) +
+    scale_x_discrete(labels = c('Non', 'Early', 'Late')) +
     theme_bw() + 
     labs(x = 'Stage of Differentiation',
-         y = 'Log2 Count') +
+         y = 'Reads Count (Log 2)') +
     theme(strip.background = element_blank(),
           panel.grid = element_blank(),
           panel.spacing = unit(0,"null"))) %>%
@@ -76,9 +80,11 @@ imap(targets, function(x, .y) {
     geom_point(aes(y = ave), color = 'red') +
     geom_linerange(aes(ymin = ave - sd, ymax = ave + sd), color = 'red') +
     facet_grid(factor~geneId) +
+    expand_limits(y = 0) +
+    scale_x_discrete(labels = c('Non', 'Early', 'Late')) + 
     theme_bw() + 
     labs(x = 'Stage of Differentiation',
-         y = 'Log2 Count in Peaks') +
+         y = 'Reads in Peaks Count (Log 2)') +
     theme(strip.background = element_blank(),
           panel.grid = element_blank(),
           panel.spacing = unit(0,"null"))) %>%
