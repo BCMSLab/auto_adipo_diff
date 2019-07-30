@@ -76,7 +76,11 @@ figures: dir_manuscript \
 	$(FIG_DIR)/coexpres_adipogenic_autophagy_genes.png \
 	$(FIG_DIR)/coexpres_adipogenic_adipogenic.png \
 	$(FIG_DIR)/PPARG_occupancy_change.png \
-	$(FIG_DIR)/CEBPB_occupancy_change.png
+	$(FIG_DIR)/CEBPB_occupancy_change.png \
+	$(FIG_DIR)/volcanos_kd_cebpb.png \
+	$(FIG_DIR)/volcanos_kd_pparg.png \
+	$(FIG_DIR)/kd_heatmap_cebpb.png \
+	$(FIG_DIR)/kd_heatmap_pparg.png
 
 tables: ## Generate the tables
 tables: dir_manuscript \
@@ -86,7 +90,8 @@ tables: dir_manuscript \
 	$(TAB_DIR)/deg_fc.tex \
 	$(TAB_DIR)/dep_fc_genes.tex \
 	$(TAB_DIR)/dep_fc_tf_mod.tex \
-	$(TAB_DIR)/variance_explained.tex
+	$(TAB_DIR)/variance_explained.tex \
+	$(TAB_DIR)/kd_fc.tex
 	
 # Figures
 $(FIG_DIR)/%_markers.png: $(FIG_SRC)/markers.R $(DATA)/gene_counts.rds
@@ -229,6 +234,14 @@ $(FIG_DIR)/%_occupancy_change.png: $(FIG_SRC)/occupancy_change.R \
 	$(DATA)/occupancy_res.rds \
 	$(DATA)/factor_targets.rds
 	$(RFIG)
+$(FIG_DIR)/volcanos_kd_%.png: $(FIG_SRC)/kd_volcanos.R \
+	$(DATA)/cebpb_kd_res.rds \
+	$(DATA)/pparg_kd_res.rds
+	$(RFIG)
+$(FIG_DIR)/kd_heatmap_%.png: $(FIG_SRC)/kd_heatmap.R \
+	$(DATA)/counts_cebpb_kd.rds \
+	$(DATA)/arrays_pparg_kd.rds
+	$(RFIG)	
 	
 # Tables
 $(TAB_DIR)/datasets.tex: $(TAB_SRC)/datasets.R \
@@ -264,7 +277,11 @@ $(TAB_DIR)/variance_explained.tex: $(TAB_SRC)/variance_explained.R \
 	$(RTAB)
 $(TAB_DIR)/variance_explained_chip.tex: $(TAB_SRC)/variance_explained_chip.R $(DATA)/binding_data.rds
 	$(RTAB)
-
+$(TAB_DIR)/kd_fc.tex: $(TAB_SRC)/kd_fc.R \
+	$(DATA)/cebpb_kd_res.rds \
+	$(DATA)/pparg_kd_res.rds
+	$(RTAB)
+	
 # Clean Up
 .PHONY: clean
 clean: ## Clean up
