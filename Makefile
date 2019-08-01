@@ -91,7 +91,9 @@ tables: dir_manuscript \
 	$(TAB_DIR)/dep_fc_genes.tex \
 	$(TAB_DIR)/dep_fc_tf_mod.tex \
 	$(TAB_DIR)/variance_explained.tex \
-	$(TAB_DIR)/kd_fc.tex
+	$(TAB_DIR)/kd_fc.tex \
+	$(TAB_DIR)/deg_go.tex \
+	$(TAB_DIR)/kd_go.tex
 	
 # Figures
 $(FIG_DIR)/%_markers.png: $(FIG_SRC)/markers.R $(DATA)/gene_counts.rds
@@ -281,7 +283,13 @@ $(TAB_DIR)/kd_fc.tex: $(TAB_SRC)/kd_fc.R \
 	$(DATA)/cebpb_kd_res.rds \
 	$(DATA)/pparg_kd_res.rds
 	$(RTAB)
-	
+$(TAB_DIR)/deg_go.tex: $(TAB_SRC)/deg_go.R \
+	$(DATA)/deg_go_res.rds
+	$(RTAB)
+$(TAB_DIR)/kd_go.tex: $(TAB_SRC)/kd_go.R \
+	$(DATA)/kd_go_res.rds
+	$(RTAB)
+
 # Clean Up
 .PHONY: clean
 clean: ## Clean up
