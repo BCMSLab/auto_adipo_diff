@@ -26,7 +26,7 @@ colnames(mat2) <- se$id
 column_ord <- order(paste(se$time, se$group))
 row_ord <- match(rownames(mat2), targets$gene)
 
-col_fun <- colorRamp2(c(-2, 0, 2), c('darkgreen', 'white', 'darkred'))
+col_fun <- colorRamp2(c(-2, 0, 2), c('darkgreen', 'white', 'darkblue'))
 
 png(filename = 'manuscript/figures/kd_heatmap_cebpb.png',
     width = 10, height = 12, units = 'cm', res = 500)
@@ -59,7 +59,7 @@ colnames(mat2) <- eset$geo_accession
 column_ord <- order(paste(eset$time, eset$group))
 row_ord <- match(rownames(mat2), targets$gene)
 
-col_fun <- colorRamp2(c(-2, 0, 2), c('darkgreen', 'white', 'darkred'))
+col_fun <- colorRamp2(c(-2, 0, 2), c('darkgreen', 'white', 'darkblue'))
 
 png(filename = 'manuscript/figures/kd_heatmap_pparg.png',
     width = 18, height = 14, units = 'cm', res = 500)

@@ -84,7 +84,7 @@ imap(targets, function(x, .y) {
     scale_x_discrete(labels = c('Non', 'Early', 'Late')) + 
     theme_bw() + 
     labs(x = 'Stage of Differentiation',
-         y = 'Reads in Peaks Count (Log 2)') +
+         y = 'Reads Count in Peaks (Log 2)') +
     theme(strip.background = element_blank(),
           panel.grid = element_blank(),
           panel.spacing = unit(0,"null"))) %>%

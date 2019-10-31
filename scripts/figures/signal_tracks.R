@@ -34,7 +34,7 @@ map2(factors, controls, function(f, c) {
       geom_col() +
       geom_vline(xintercept = 0, color = 'red', lty = 2) +
       facet_grid(time ~ gene_id, scales = 'free') +
-      labs(x = '', y = 'Score (Relative Peack Enrichment)') +
+      labs(x = '', y = 'Score (Relative Peak Enrichment)') +
       scale_y_continuous(breaks = scales::pretty_breaks(n = 2)) +
       theme_classic() +
       theme(panel.grid = element_blank(),
@@ -68,7 +68,7 @@ map2(factors, controls, function(f, c) {
         geom_col() +
       geom_vline(xintercept = 0, color = 'red', lty = 2) +
       facet_grid(tissue + rep ~ gene_id, scales = 'free') +
-      labs(x = '', y = 'Score (Relative Peack Enrichment)') +
+      labs(x = '', y = 'Score (Relative Peak Enrichment)') +
       scale_y_continuous(breaks = scales::pretty_breaks(n = 2)) +
       theme_classic() +
       theme(panel.grid = element_blank(),

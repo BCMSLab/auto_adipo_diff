@@ -28,13 +28,13 @@ tf <- c('Cebpb', 'Pparg', 'Rxrg', 'Ep300', 'Med1')
   mutate(type = factor(type,
                        levels = c('All Genes', 'Autophagy Genes', 'Autophagy TF', 'Adipogenic TF'))) %>%
   ggplot(aes(x = V1, y = V2, color = group)) +
-  geom_point() +
+  geom_point(size = 1.5, alpha = .7) +
   facet_wrap(~type, nrow = 1, scales = 'free') +
   theme_bw() +
   theme(legend.position = 'top',
         panel.grid = element_blank(),
         strip.background = element_blank()) +
-  labs(x = 'Dim 1', y = 'Dim 2', color = 'Stage of Differentiation')) %>%
+  labs(x = 'Dimension 1', y = 'Dimension 2', color = 'Stage of Differentiation')) %>%
   ggsave(plot = .,
          filename = 'manuscript/figures/mds_gene_group.png',
          height = 7, width = 20, units = 'cm')

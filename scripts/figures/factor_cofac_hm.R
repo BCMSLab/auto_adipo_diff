@@ -55,7 +55,8 @@ factor_cofactor <- counts %>%
   theme_bw() +
   theme(legend.position = 'top',
         panel.grid = element_blank(),
-        strip.background = element_blank()) +
+        strip.background = element_blank(),
+        panel.spacing = unit(0, 'null')) +
   lims(x = c(0, 5), y = c(0,5)) +
   labs(x = 'Co-factor Counts (Log 2)',
        y = 'Factor Counts (Log 2)',
@@ -73,7 +74,8 @@ factor_cofactor <- counts %>%
   theme_bw() +
   theme(legend.position = 'top',
         panel.grid = element_blank(),
-        strip.background = element_blank()) +
+        strip.background = element_blank(),
+        panel.spacing = unit(0, 'null')) +
   lims(x = c(0, 5), y = c(0,5)) +
   labs(x = 'Co-factor Counts (Log 2)',
        y = 'Factor Counts (Log 2)',
@@ -100,7 +102,8 @@ factor_hm <- counts %>%
   theme_bw() +
   theme(legend.position = 'top',
         panel.grid = element_blank(),
-        strip.background = element_blank()) +
+        strip.background = element_blank(),
+        panel.spacing = unit(0, 'null')) +
   lims(x = c(0, 5), y = c(0,5)) +
   labs(x = 'Histone Marker Counts (Log 2)',
        y = 'Factor Counts (Log 2)',
@@ -118,7 +121,8 @@ factor_hm <- counts %>%
   theme_bw() +
   theme(legend.position = 'top',
         panel.grid = element_blank(),
-        strip.background = element_blank()) +
+        strip.background = element_blank(),
+        panel.spacing = unit(0, 'null')) +
   lims(x = c(0, 5), y = c(0,5)) +
   labs(x = 'Histone Marker Counts (Log 2)',
        y = 'Factor Counts (Log 2)',

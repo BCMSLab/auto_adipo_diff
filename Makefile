@@ -93,7 +93,8 @@ tables: dir_manuscript \
 	$(TAB_DIR)/variance_explained.tex \
 	$(TAB_DIR)/kd_fc.tex \
 	$(TAB_DIR)/deg_go.tex \
-	$(TAB_DIR)/kd_go.tex
+	$(TAB_DIR)/kd_go.tex \
+	$(TAB_DIR)/chip_antibodies.tex
 	
 # Figures
 $(FIG_DIR)/%_markers.png: $(FIG_SRC)/markers.R $(DATA)/gene_counts.rds
@@ -289,7 +290,10 @@ $(TAB_DIR)/deg_go.tex: $(TAB_SRC)/deg_go.R \
 $(TAB_DIR)/kd_go.tex: $(TAB_SRC)/kd_go.R \
 	$(DATA)/kd_go_res.rds
 	$(RTAB)
-
+$(TAB_DIR)/chip_antibodies.tex: $(TAB_SRC)/chip_antibodies.R \
+	$(DATA)/peak_counts.rds
+	$(RTAB)
+	
 # Clean Up
 .PHONY: clean
 clean: ## Clean up

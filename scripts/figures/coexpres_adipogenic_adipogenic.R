@@ -16,7 +16,7 @@ hms <- ddcor %>%
   imap(function(x, .y) {
     
     mat <- acast(x, Gene1 ~ group, value.var = 'cor')
-    col_fun <- colorRamp2(c(-1, 0, 1), c('darkred', 'white', 'darkblue'))
+    col_fun <- colorRamp2(c(-1, 0, 1), c('darkgreen', 'white', 'darkblue'))
     cell_fun = function(j, i, x, y, width, height, fill) {
       grid.text(as.character(round(mat[i, j], 1)), x, y, gp = gpar(fontsize = 10))}
     
