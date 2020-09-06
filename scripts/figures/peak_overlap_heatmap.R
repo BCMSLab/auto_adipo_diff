@@ -21,7 +21,7 @@ pd <- tibble(
   filter(factor %in% c(tfs, hms)) %>%
   mutate(file = paste0('autoreg/data/peaks/', id, '_peaks.xls'))
 
-peak_overlaps <- read_rds('autoreg/data/peak_overlaps_all.rds')
+peak_overlaps <- read_rds('autoreg/data/peak_overlaps.rds')
 
 col_fun <- colorRamp2(c(0, 1), c('white', 'darkblue'))
 

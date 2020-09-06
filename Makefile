@@ -221,14 +221,14 @@ $(FIG_DIR)/transcription_expression.png: $(FIG_SRC)/transcription_expression.R \
 	$(RFIG)
 $(FIG_DIR)/peak_overlap_heatmap.png: $(FIG_SRC)/peak_overlap_heatmap.R \
 	$(DATA)/peak_counts.rds \
-	$(DATA)/peak_overlaps_all.rds
+	$(DATA)/peak_overlaps.rds
 	$(RFIG)
 $(FIG_DIR)/profile_%.png: $(FIG_SRC)/profiles.R \
 	$(DATA)/gene_counts.rds \
 	$(DATA)/factor_occupancy.rds \
 	$(DATA)/binding_data.rds
 	$(RFIG)
-$(FIG_DIR)/signal_%.png: $(FIG_SRC)/signal_tracks.R \
+$(LOG_FIG)/signal_tracks.R.Rout: $(FIG_SRC)/signal_tracks.R \
 	$(DATA)/data_tracks_tidy.rds \
 	$(DATA)/data_tracks_tissue_tidy.rds
 	$(RFIG)
