@@ -2,6 +2,7 @@ library(tidyverse)
 library(SummarizedExperiment)
 library(xtable)
 
+id_antibody <- read_csv('autoreg/data/id_antibody.csv')
 peak_counts <- read_rds('autoreg/data/peak_counts.rds')
 
 tfs <- c('CEBPB', 'PPARG', 'POLR2A', 'RXRG', 'EP300', 'MED1')
@@ -11,6 +12,7 @@ pd <- colData(peak_counts)
 
 pd[, !colnames(pd) %in% 'qc'] %>%
   as_tibble() %>%
+  left_join(id_antibody) %>%
   filter(!is.na(factor),
          factor %in% c(tfs, hms)) %>%
   select(factor, antibody, study, bibtexkey) %>%

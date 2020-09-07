@@ -291,7 +291,8 @@ $(TAB_DIR)/kd_go.tex: $(TAB_SRC)/kd_go.R \
 	$(DATA)/kd_go_res.rds
 	$(RTAB)
 $(TAB_DIR)/chip_antibodies.tex: $(TAB_SRC)/chip_antibodies.R \
-	$(DATA)/peak_counts.rds
+	$(DATA)/peak_counts.rds \
+	$(DATA)/id_antibody.csv
 	$(RTAB)
 	
 # Clean Up
